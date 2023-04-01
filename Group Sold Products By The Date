@@ -1,0 +1,8 @@
+with cte as(
+  select sell_date, product from Activities
+  group by sell_date,product
+)
+
+select sell_date ,count(product) 'num_sold',
+ string_agg(product,',') within group(order by product) 'products' from cte
+group by sell_date
